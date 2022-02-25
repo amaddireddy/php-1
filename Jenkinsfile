@@ -2,7 +2,7 @@ pipeline{
     agent any
     environment{
         IMAGE_NAME ='amaddireddy/newimage:php$BUILD_NUMBER'
-        SERVER_IP =  'ec2-user@52.66.201.219'
+        SERVER_IP =  'ec2-user@3.6.41.111'
     }
     stages{
         stage('Build docker image'){
