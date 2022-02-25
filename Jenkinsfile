@@ -2,7 +2,7 @@ pipeline{
     agent any
     environment{
         IMAGE_NAME ='amaddireddy/newimage:php$BUILD_NUMBER'
-        SERVER_IP =  'ec2-user@13.126.232.182'
+        SERVER_IP =  'ec2-user@3.110.216.41'
     }
     stages{
         stage('Build docker image'){
@@ -17,8 +17,7 @@ pipeline{
     sh "ssh ${SERVER_IP} sudo docker build -t ${IMAGE_NAME} /home/ec2-user/docker-files/"
     sh "ssh ${SERVER_IP} sudo docker login -u $USERNAME -p $PASSWORD" 
     sh "ssh ${SERVER_IP} sudo docker push ${IMAGE_NAME}"
-    sh "ssh ${SERVER_IP} sudo docker-compose -f docker-compose.yml up -d"
-  
+    sh "ssh ${SERVER_IP} sudo DOCKER_IMAGE=$1 docker-compose -f /home/ec2-user/docker-files/docker-compose.yml up -d"
                  }
             }
         }        
