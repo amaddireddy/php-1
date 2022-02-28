@@ -14,7 +14,6 @@ pipeline{
     echo "Building the docker image" 
     sh "scp -o StrictHostKeyChecking=no -r docker-files ${SERVER_IP}:/home/ec2-user" 
     sh "ssh -o StrictHostKeyChecking=no ${SERVER_IP} 'bash ~/docker-files/docker-script.sh'"
-    sh "ssh -o StrictHostKeyChecking=no ${SERVER_IP} '/usr/bin/docker-compose ~/docker-files/docker-script.sh'"     
     sh "ssh ${SERVER_IP} sudo docker build -t ${IMAGE_NAME} /home/ec2-user/docker-files/"
     sh "ssh ${SERVER_IP} sudo docker login -u $USERNAME -p $PASSWORD" 
     sh "ssh ${SERVER_IP} sudo docker push ${IMAGE_NAME}"
